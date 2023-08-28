@@ -1,15 +1,14 @@
-const fastify = require("fastify")();
+import Fastify from "fastify";
+import websocket from "@fastify/websocket";
 
-fastify.get("/hello", (request, reply) => {
-  reply.send({
-    message: "Hello Fastify",
+const fastify = Fastify();
+await fastify.register(websocket);
+
+fastify.get("/", { websocket: true }, function wsHandler(connection, req) {
+  connection.socket.on("message", (message) => {
+    // message.toString() === 'hi from client'
+    connection.socket.send("hi from server");
   });
 });
 
-fastify.listen({ port: 2121 }, (err, address) => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log(`Server listening at: ${address}`);
-});
+await fastify.listen({ port: 2121 });

@@ -5,10 +5,12 @@
   "repository": "https://github.com/txndai/fastify-ws.git",
   "author": "Guide Fari <guide.fari@flexperto.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "start": "nodemon main.js"
   },
   "dependencies": {
+    "@fastify/websocket": "^8.2.0",
     "fastify": "^4.22.0",
     "nodemon": "^3.0.1"
   }
